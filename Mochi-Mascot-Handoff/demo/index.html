@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mochi mascot demo</title>
+  <link rel="stylesheet" href="../mascot/mochi-mascot.css">
+  <style>
+    :root { --ink: #3a2a2a; --paper: #fff8f4; --rose: #d9707e; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--ink); background: var(--paper); }
+    main { max-width: 880px; margin: 0 auto; padding: 72px 24px 420px; }
+    h1 { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.1; margin: 0 0 12px; letter-spacing: -0.02em; }
+    .lede { max-width: 52ch; color: #6b5555; margin: 0 0 28px; }
+    .btn { font: inherit; font-weight: 600; background: var(--rose); color: #fff; border: 0; border-radius: 10px; padding: 12px 20px; cursor: pointer; }
+    .btn:hover { background: #c45b69; }
+    .moves { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .btn.ghost { background: #fff; color: #b34a58; border: 1px solid #f0cfd3; padding: 9px 14px; font-weight: 500; }
+    .btn.ghost:hover { background: #fdeff1; }
+    .lbl { align-self: center; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: #9a8484; min-width: 4.5rem; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 40px 0; }
+    .card { background: #fff; border: 1px solid #f1e1dc; border-radius: 14px; padding: 20px; }
+    .card h2 { margin: 0 0 6px; font-size: 1.1rem; }
+    .card p { margin: 0; color: #6b5555; font-size: 0.95rem; }
+    .filler { height: 520px; border-radius: 14px; background: repeating-linear-gradient(135deg, #f8ece6 0 14px, #fcf3ee 14px 28px); display: grid; place-items: center; color: #9a8484; margin-bottom: 24px; }
+    code { background: #f8ece6; padding: 2px 6px; border-radius: 5px; font-size: 0.9em; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Hello, I'm Mochi</h1>
+    <p class="lede">Move your mouse around: her eyes, head and tail follow along. She speaks on her own now and then, and your own scripts can talk through her with <code>mochiMascot.say("...")</code>.</p>
+    <button class="btn" id="signup">Sign up</button>
+    <div class="moves" role="group" aria-label="Mochi actions">
+      <span class="lbl">Actions</span>
+      <button class="btn ghost" data-act="wave">Wave</button>
+      <button class="btn ghost" data-act="jump">Jump</button>
+      <button class="btn ghost" data-act="celebrate">Celebrate</button>
+      <button class="btn ghost" data-act="thumbs">Thumbs up</button>
+      <button class="btn ghost" data-act="dance">Dance</button>
+      <button class="btn ghost" data-act="wink">Wink</button>
+      <button class="btn ghost" data-act="clap">Cheer</button>
+      <button class="btn ghost" data-act="shrug">Shrug</button>
+      <button class="btn ghost" data-act="think">Think</button>
+      <button class="btn ghost" data-act="surprised">Surprised</button>
+      <button class="btn ghost" data-act="sleep">Sleep</button>
+      <button class="btn ghost" data-act="point">Visit the cards</button>
+      <button class="btn ghost" data-act="walk">Stroll</button>
+      <button class="btn ghost" data-act="left">Walk left</button>
+      <button class="btn ghost" data-act="home">Home</button>
+    </div>
+    <div class="cards">
+      <article class="card" tabindex="0" data-say="Hover on me and I'll tell you something."><h2>Card one</h2><p>Hover me and Mochi comments.</p></article>
+      <article class="card" tabindex="0" data-say="Purr-fect, you found the second card!"><h2>Card two</h2><p>Hover me and Mochi comments.</p></article>
+      <article class="card" tabindex="0" data-say="Three cards. I count in nine lives."><h2>Card three</h2><p>Hover me and Mochi comments.</p></article>
+    </div>
+    <div class="filler">scroll space</div>
+    <div class="filler">more scroll space</div>
+  </main>
+  <script src="../mascot/mochi-mascot.js" defer></script>
+  <script>
+    document.querySelectorAll("[data-act]").forEach((b) => b.addEventListener("click", () => {
+      const a = b.dataset.act;
+      if (a === "left") mochiMascot.walkTo("left"); else if (a === "point") mochiMascot.pointAt(".card"); else mochiMascot.react(a);
+    }));
+    document.getElementById("signup").addEventListener("click", () => { mochiMascot.celebrate(); mochiMascot.say("Welcome aboard! \u{1F389}", { duration: 3500 }); });
+    document.querySelectorAll("[data-say]").forEach((el) => { const talk = () => mochiMascot.say(el.dataset.say, { duration: 3000 }); el.addEventListener("mouseenter", talk); el.addEventListener("focus", talk); });
+  </script>
+</body>
+</html>

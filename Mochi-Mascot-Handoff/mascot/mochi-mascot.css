@@ -1,0 +1,126 @@
+/* Mochi the cat mascot - styles. Tweak the custom properties below, or override them from your own CSS. */
+.mochi-mascot {
+  --mochi-size: clamp(190px, 20vw, 300px);       /* width of the whole mascot (including her tail) */
+  --mochi-right: 12px;
+  --mochi-bottom: 6px;
+  --mochi-z: 9999;
+
+  --mochi-bubble-bg: #ffffff;
+  --mochi-bubble-ink: #3a2a2a;
+  --mochi-bubble-border: rgba(214, 120, 130, 0.28);    /* soft rose, to match her sweater */
+  --mochi-bubble-shadow: 0 10px 30px -8px rgba(60, 30, 30, 0.28), 0 2px 6px rgba(60, 30, 30, 0.1);
+  --mochi-bubble-font: 15px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  position: fixed;
+  right: var(--mochi-right);
+  bottom: var(--mochi-bottom);
+  z-index: var(--mochi-z);
+  width: var(--mochi-size);
+  pointer-events: none;            /* she never blocks clicks on the page (only her body reacts to a poke) */
+  user-select: none;
+  -webkit-user-select: none;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.mochi-mascot.is-ready { opacity: 1; transform: none; }
+
+@media (max-width: 640px) {
+  .mochi-mascot { --mochi-size: clamp(130px, 38vw, 175px); --mochi-right: 14px; }
+}
+
+/* ---- the cat ---- */
+.mochi-walker { position: relative; width: 100%; will-change: transform; }       /* moved sideways by the script when she walks */
+.mochi-stage { position: relative; width: 100%; aspect-ratio: var(--mochi-aspect, 0.6); }
+.mochi-rock, .mochi-bounce, .mochi-breath { position: absolute; inset: 0; }
+.mochi-rock { transform-origin: 50% 96%; }                                        /* waddle / wave sway */
+.mochi-bounce { transform-origin: 50% 100%; }                                     /* hops, squash & stretch */
+.mochi-breath { transform-origin: 50% 100%; animation: mochi-breathe 4.6s ease-in-out infinite; }
+.mochi-rig { position: absolute; inset: 0; }
+.mochi-body { position: absolute; inset: 0; transform-origin: 50% 100%; will-change: transform; }
+.mochi-pose, .mochi-eye, .mochi-headimg, .mochi-tail { position: absolute; display: block; max-width: none; -webkit-user-drag: none; pointer-events: none; }
+.mochi-pose { visibility: hidden; }                                               /* only the current pose frame is shown */
+.mochi-pose.is-on { visibility: visible; }
+.mochi-tailbox { position: absolute; }                                            /* behind the body; placed for each pose by the script */
+.mochi-tail { inset: 0; width: 100%; height: 100%; animation: mochi-sway 3.4s ease-in-out infinite alternate; }
+.mochi-headact { position: absolute; }
+.mochi-head { position: absolute; inset: 0; will-change: transform; }
+.mochi-headvar { position: absolute; inset: 0; visibility: hidden; }              /* one per expression (rest, talking, blink, happy) */
+.mochi-headvar.is-on { visibility: visible; }
+.mochi-headimg { inset: 0; width: 100%; height: 100%; }
+.mochi-iris { will-change: transform; }
+.mochi-shadow {
+  position: absolute; height: 5%;
+  background: radial-gradient(closest-side, rgba(60, 36, 30, 0.3), rgba(60, 36, 30, 0));
+  filter: blur(2px);
+}
+/* clickable area (an ellipse over the cat) */
+.mochi-hit {
+  position: absolute; left: 14%; top: 4%; width: 62%; height: 94%;
+  border-radius: 46%; pointer-events: auto; cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+@keyframes mochi-breathe {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.003, 1.01); }
+}
+@keyframes mochi-sway {
+  0% { transform: rotate(calc(var(--mochi-sway, 6deg) * -1)); }
+  100% { transform: rotate(var(--mochi-sway, 6deg)); }
+}
+
+/* ---- speech bubble ---- */
+.mochi-bubble-pos {
+  position: absolute;
+  left: var(--mochi-bx, 50%);
+  bottom: calc(100% - 2%);
+  width: max-content;
+  max-width: min(270px, calc(100vw - 24px));
+  transform: translateX(calc(-50% + var(--mochi-bshift, 0px)));     /* centred over the head, nudged back on screen near the edges */
+  pointer-events: none;
+}
+.mochi-bubble {
+  position: relative;
+  padding: 11px 15px 12px;
+  background: var(--mochi-bubble-bg);
+  color: var(--mochi-bubble-ink);
+  font: var(--mochi-bubble-font);
+  border: 1px solid var(--mochi-bubble-border);
+  border-radius: 18px;
+  box-shadow: var(--mochi-bubble-shadow);
+  transform-origin: calc(50% - var(--mochi-bshift, 0px)) 100%;      /* grows out of the tail, above her head */
+  opacity: 0;
+  transform: translateY(8px) scale(0.9);
+  transition: opacity 0.26s ease-out, transform 0.34s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-wrap: anywhere;
+}
+.mochi-bubble[hidden] { display: none; }
+.mochi-bubble.is-visible { opacity: 1; transform: none; }
+.mochi-bubble.is-leaving { opacity: 0; transform: translateY(4px) scale(0.97); transition: opacity 0.42s ease-in, transform 0.42s ease-in; }
+
+/* tail pointing at her head */
+.mochi-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -7px;
+  left: calc(50% - 7px - var(--mochi-bshift, 0px));
+  width: 14px; height: 14px;
+  background: var(--mochi-bubble-bg);
+  border-right: 1px solid var(--mochi-bubble-border);
+  border-bottom: 1px solid var(--mochi-bubble-border);
+  border-bottom-right-radius: 4px;
+  transform: rotate(45deg);
+}
+
+/* the invisible full text sets the bubble's final size; the typed text is laid on top of it */
+.mochi-bubble__text { display: grid; }
+.mochi-bubble__ghost, .mochi-bubble__typed { grid-area: 1 / 1; white-space: pre-wrap; }
+.mochi-bubble__ghost { visibility: hidden; }
+.mochi-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* dark sites: add data-theme="dark" to the .mochi-mascot element, or set the --mochi-bubble-* variables yourself */
+.mochi-mascot[data-theme="dark"] { --mochi-bubble-bg: #2b2224; --mochi-bubble-ink: #f9ecec; --mochi-bubble-border: rgba(255, 255, 255, 0.12); }
+
+@media (prefers-reduced-motion: reduce) {
+  .mochi-breath, .mochi-tail { animation: none; }
+  .mochi-mascot, .mochi-bubble, .mochi-bubble.is-leaving { transition-duration: 0.01s; }
+}

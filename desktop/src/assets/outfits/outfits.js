@@ -1,0 +1,1 @@
+window.MOCHI_OUTFITS = {};

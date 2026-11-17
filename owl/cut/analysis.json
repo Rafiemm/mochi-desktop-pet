@@ -1,0 +1,97 @@
+{
+ "bodies": {
+  "mochi-celebrate-body": {
+   "w": 927,
+   "h": 1052,
+   "neckX": 464.4,
+   "neckY": 161,
+   "bottom": 1047,
+   "collarW": 357,
+   "collarY1": 315
+  },
+  "mochi-rest-body": {
+   "w": 769,
+   "h": 969,
+   "neckX": 390.3,
+   "neckY": 18,
+   "bottom": 964,
+   "collarW": 400,
+   "collarY1": 181
+  },
+  "mochi-think-body": {
+   "w": 668,
+   "h": 1145,
+   "neckX": 337.5,
+   "neckY": 20,
+   "bottom": 1140,
+   "collarW": 470,
+   "collarY1": 233
+  },
+  "mochi-thumbs-body": {
+   "w": 834,
+   "h": 1108,
+   "neckX": 413.1,
+   "neckY": 18,
+   "bottom": 1103,
+   "collarW": 436,
+   "collarY1": 201
+  },
+  "mochi-walk-a-body": {
+   "w": 849,
+   "h": 1007,
+   "neckX": 421,
+   "neckY": 15,
+   "bottom": 1002,
+   "collarW": 411,
+   "collarY1": 193
+  },
+  "mochi-walk-b-body": {
+   "w": 845,
+   "h": 979,
+   "neckX": 432.8,
+   "neckY": 16,
+   "bottom": 974,
+   "collarW": 401,
+   "collarY1": 189
+  },
+  "mochi-wave-body": {
+   "w": 854,
+   "h": 1062,
+   "neckX": 454.9,
+   "neckY": 75,
+   "bottom": 1057,
+   "collarW": 410,
+   "collarY1": 247
+  }
+ },
+ "heads": {
+  "mochi-blink-head": {
+   "dx": 0,
+   "dy": 0,
+   "iou": 0.9935,
+   "ox": 16,
+   "oy": 229
+  },
+  "mochi-happy-head": {
+   "dx": 0,
+   "dy": 2,
+   "iou": 0.9928,
+   "ox": 16,
+   "oy": 230
+  },
+  "mochi-rest-head": {
+   "dx": 0,
+   "dy": 0,
+   "iou": 1,
+   "ox": 16,
+   "oy": 230
+  },
+  "mochi-talk-head": {
+   "dx": 0,
+   "dy": 0,
+   "iou": 0.9922,
+   "ox": 16,
+   "oy": 230
+  }
+ }
+}

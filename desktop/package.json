@@ -1,0 +1,39 @@
+{
+  "name": "mochi-desktop-pet",
+  "productName": "Mochi",
+  "version": "1.0.0",
+  "description": "Mochi the cat - a desktop pet that lives on top of your screen",
+  "main": "src/main.js",
+  "author": "Rafiemm",
+  "license": "UNLICENSED",
+  "repository": { "type": "git", "url": "https://github.com/Rafiemm/mochi-desktop-pet.git" },
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis --publish never",
+    "release": "node scripts/release.cjs"
+  },
+  "dependencies": {
+    "electron-updater": "^6.8.11"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.mochi.desktoppet",
+    "productName": "Mochi",
+    "directories": { "output": "dist", "buildResources": "build" },
+    "files": ["src/**/*", "package.json"],
+    "publish": [{ "provider": "github", "owner": "Rafiemm", "repo": "mochi-desktop-pet", "releaseType": "release" }],
+    "win": { "icon": "build/icon.ico", "target": ["nsis"] },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "runAfterFinish": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Mochi"
+    },
+    "artifactName": "Mochi-Setup-${version}.exe"
+  }
+}
