@@ -12,7 +12,7 @@ window.MOCHI_CONFIG = {
   ],
   phraseEvery: 120,
   roamEvery: 60,
-  size: 260,
+  size: Number(new URLSearchParams(location.search).get("size")) || 150,
   right: 24,
   bottom: 0,
   outfit: new URLSearchParams(location.search).get("outfit") || "default",

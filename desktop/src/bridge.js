@@ -9,5 +9,10 @@
   document.addEventListener("mouseleave", () => set(false));
   window.mochiHost.onConfig((c) => { if (window.mochiMascot) window.mochiMascot.configure(c); });
   window.mochiHost.onOutfit((id) => window.mochiMascot && window.mochiMascot.setOutfit(id));
+  window.mochiHost.onSize((px) => {
+    if (!window.mochiMascot) return;
+    window.mochiMascot.configure({ size: px });
+    window.dispatchEvent(new Event("resize"));            // keep her on screen if she was standing near the edge
+  });
   window.mochiHost.onSay((t) => window.mochiMascot && window.mochiMascot.say(t));
 })();

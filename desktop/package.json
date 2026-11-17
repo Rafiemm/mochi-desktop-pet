@@ -1,7 +1,7 @@
 {
   "name": "mochi-desktop-pet",
   "productName": "Mochi",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Mochi the cat - a desktop pet that lives on top of your screen",
   "main": "src/main.js",
   "author": "Rafiemm",
